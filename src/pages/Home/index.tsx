@@ -8,9 +8,7 @@ export function Home() {
   const [students, setStudents] = useState([]);
 
   function AdicionarEstudante(){
-    const newStudent:  {
-      nome: string | number | boolean  | null | never; 
-      time: string | number | boolean | null | never;}  = {
+    const newStudent = {
       nome: MudarNomeInput,
       time: new Date().toLocaleTimeString("pt-br",{
         hour: '2-digit',
