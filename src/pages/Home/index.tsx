@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './style.css'
 
 import {Card} from '../../components/cards';
@@ -6,6 +6,7 @@ import {Card} from '../../components/cards';
 export function Home() {
   const [MudarNomeInput, setMudarNomeInput] = useState('');
   const [students, setStudents] = useState([]);
+  const [user, setUser] = useState({nome: '', avatar: ''});
 
   function AdicionarEstudante(){
     const newStudent = {
@@ -19,6 +20,16 @@ export function Home() {
     setStudents(prevState => [...prevState, newStudent]);
   }
 
+  useEffect(() => {
+    fetch('https://api.github.com/users/maiatech-solution')
+    .then(response => response.json())
+    .then(data => {
+      setUser({
+        avatar: data.avatar_url,
+        nome: data.name,
+      })
+    })
+  })
 
   return (
     <div className='container'>
@@ -26,8 +37,8 @@ export function Home() {
         <h1>Lista de presença</h1>
 
         <div>
-          <strong>Maia</strong>
-          <img src='https://github.com/maiatech-solution.png' alt="logo" />
+          <strong>{user.nome}</strong>
+          <img src={user.avatar} alt="logo" />
         </div>
       </header>
       <input type="text" placeholder='Digite seu nome: '
